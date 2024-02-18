@@ -154,7 +154,7 @@
 <body>
 
 <div id="overlay">
-  <div id="overlay-content">
+  <div id="overlay-content" class="dark-mode">
     <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
     <button onclick="playVideo()">Accepter</button>
     <button onclick="closeOverlay()">Refuser</button>
@@ -246,7 +246,9 @@
   function toggleDarkMode() {
     var body = document.body;
     var darkModeSwitch = document.getElementById('darkModeSwitch');
+    var overlayContent = document.getElementById('overlay-content');
     body.classList.toggle('dark-mode', darkModeSwitch.checked);
+    overlayContent.classList.toggle('dark-mode', darkModeSwitch.checked);
   }
 </script>
 
