@@ -126,15 +126,6 @@
       -ms-transform: translateX(26px);
       transform: translateX(26px);
     }
-
-    /* Style for the dark mode text */
-    .dark-mode-text {
-      position: fixed;
-      top: 18px;
-      right: 80px;
-      color: white;
-      font-size: 16px;
-    }
   </style>
 </head>
 <body>
@@ -151,8 +142,6 @@
   <input type="checkbox" id="darkModeSwitch" onclick="toggleDarkMode()">
   <span class="slider"></span>
 </label>
-
-<span class="dark-mode-text">Dark Mode</span>
 
 <video id="myVideo" width="100%" controls="false" controlsList="nodownload"></video>
 
@@ -171,13 +160,6 @@
       // Hide dark mode switch
       darkModeSwitchContainer.style.display = 'none';
     }
-
-    // Ask for confirmation before leaving the page
-    window.onbeforeunload = function() {
-      if (!hasAcceptedCookies()) {
-        return 'Vous n\'avez pas accepté les cookies. Êtes-vous sûr de vouloir quitter la page?';
-      }
-    };
 
     // Set initial dark mode state based on user preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -214,7 +196,7 @@
       }
 
       // Hide dark mode switch
-      document.getElementById('darkModeSwitchContainer').style.display = 'none';
+      darkModeSwitchContainer.style.display = 'none';
     }
   }
 
@@ -237,12 +219,15 @@
   function toggleDarkMode() {
     var body = document.body;
     var darkModeSwitch = document.getElementById('darkModeSwitch');
-    var overlayContent = document.getElementById('overlay-content');
-    var darkModeText = document.getElementById('darkModeText');
     body.classList.toggle('dark-mode', darkModeSwitch.checked);
-    overlayContent.classList.toggle('dark-mode', darkModeSwitch.checked);
-    darkModeText.classList.toggle('dark-mode', darkModeSwitch.checked);
   }
+
+  // Remove the confirmation prompt when video is not displayed
+  window.onbeforeunload = function() {
+    if (!hasAcceptedCookies() || !video.style.visibility || video.style.visibility !== 'visible') {
+      return null;
+    }
+  };
 </script>
 
 </body>
