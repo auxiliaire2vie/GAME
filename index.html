@@ -9,6 +9,11 @@
       transition: background-color 0.5s;
     }
 
+    body.dark-mode {
+      background-color: #333;
+      color: white;
+    }
+
     #overlay {
       display: none;
       position: fixed;
@@ -107,7 +112,7 @@
 
     // Ask for confirmation before leaving the page
     window.onbeforeunload = function() {
-      if (!hasAcceptedCookies()) {
+      if (!hasAcceptedCookies() && video.style.visibility !== 'visible') {
         return 'Vous n\'avez pas accepté les cookies. Êtes-vous sûr de vouloir quitter la page?';
       }
     };
