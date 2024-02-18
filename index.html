@@ -23,7 +23,7 @@
       text-align: center;
     }
     video {
-      outline: none; /* Remove outline on focus for Chrome */
+      visibility: hidden;
     }
   </style>
 </head>
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<video id="myVideo" width="100%" style="display: none;" controls></video>
+<video id="myVideo" width="100%" controls></video>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -64,7 +64,7 @@
     video.appendChild(source);
 
     // Play video
-    video.style.display = 'block';
+    video.style.visibility = 'visible';
     video.play();
     
     // Request fullscreen
