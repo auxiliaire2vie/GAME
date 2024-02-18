@@ -22,9 +22,6 @@
       border-radius: 10px;
       text-align: center;
     }
-    video {
-      visibility: hidden;
-    }
   </style>
 </head>
 <body>
@@ -37,7 +34,7 @@
   </div>
 </div>
 
-<video id="myVideo" width="100%" controls></video>
+<video id="myVideo" width="100%" style="visibility: hidden;"></video>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -62,6 +59,9 @@
     // Append source to video element
     var video = document.getElementById('myVideo');
     video.appendChild(source);
+
+    // Add controls
+    video.controls = true;
 
     // Play video
     video.style.visibility = 'visible';
