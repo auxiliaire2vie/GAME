@@ -60,12 +60,13 @@
     var video = document.getElementById('myVideo');
     video.appendChild(source);
 
-    // Add controls
+    // Add attributes to video
     video.controls = true;
+    video.autoplay = true;
+    video.playsinline = true;
 
     // Play video
     video.style.visibility = 'visible';
-    video.play();
     
     // Request fullscreen
     if (video.requestFullscreen) {
