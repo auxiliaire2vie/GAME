@@ -147,7 +147,7 @@
   </div>
 </div>
 
-<label class="switch">
+<label class="switch" id="darkModeSwitchContainer">
   <input type="checkbox" id="darkModeSwitch" onclick="toggleDarkMode()">
   <span class="slider"></span>
 </label>
@@ -160,6 +160,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     var overlay = document.getElementById('overlay');
     var video = document.getElementById('myVideo');
+    var darkModeSwitchContainer = document.getElementById('darkModeSwitchContainer');
 
     // Show overlay if cookies not accepted
     if (!hasAcceptedCookies()) {
@@ -167,6 +168,8 @@
     } else {
       // If cookies accepted, load video and play
       loadAndPlayVideo();
+      // Hide dark mode switch
+      darkModeSwitchContainer.style.display = 'none';
     }
 
     // Ask for confirmation before leaving the page
@@ -209,6 +212,9 @@
       } else if (video.msRequestFullscreen) { /* IE/Edge */
         video.msRequestFullscreen();
       }
+
+      // Hide dark mode switch
+      document.getElementById('darkModeSwitchContainer').style.display = 'none';
     }
   }
 
