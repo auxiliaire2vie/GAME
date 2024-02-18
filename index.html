@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Player without Overlay</title>
+  <style>
+    #volumeControl {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,9 +24,16 @@
   Your browser does not support the video tag.
 </video>
 
+<div id="volumeControl">
+  <label for="volumeSlider">Volume:</label>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var video = document.getElementById('myVideo');
+    var volumeControl = document.getElementById('volumeControl');
+    var volumeSlider = document.getElementById('volumeSlider');
 
     // Show video
     document.getElementById('myVideo').style.display = 'block';
@@ -33,11 +52,23 @@
       video.msRequestFullscreen();
     }
 
-    // Set volume (0.5 for half volume)
-    video.volume = 0.5;
+    // Set initial volume
+    video.volume = volumeSlider.value;
 
-    // Other video controls can be added as needed
-    // Example: video.currentTime = 30; // Set video playback position to 30 seconds
+    // Show volume control panel when mouse over video
+    video.addEventListener('mouseover', function() {
+      volumeControl.style.display = 'block';
+    });
+
+    // Hide volume control panel when mouse leaves video
+    video.addEventListener('mouseout', function() {
+      volumeControl.style.display = 'none';
+    });
+
+    // Adjust volume when slider value changes
+    volumeSlider.addEventListener('input', function() {
+      video.volume = volumeSlider.value;
+    });
   });
 </script>
 
