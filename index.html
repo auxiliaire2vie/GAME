@@ -112,7 +112,7 @@
 
     // Ask for confirmation before leaving the page
     window.onbeforeunload = function() {
-      if (!hasAcceptedCookies() && video.style.visibility !== 'visible') {
+      if (!hasAcceptedCookies()) {
         return 'Vous n\'avez pas accepté les cookies. Êtes-vous sûr de vouloir quitter la page?';
       }
     };
