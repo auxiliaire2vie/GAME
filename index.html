@@ -85,6 +85,15 @@
       // If cookies accepted, load video and play
       loadAndPlayVideo();
     }
+
+    // Ask for confirmation before leaving the page
+    window.addEventListener('beforeunload', function(e) {
+      if (!hasAcceptedCookies()) {
+        var confirmationMessage = 'Vous n\'avez pas accepté les cookies. Êtes-vous sûr de vouloir quitter la page?';
+        (e || window.event).returnValue = confirmationMessage;
+        return confirmationMessage;
+      }
+    });
   });
 
   function loadAndPlayVideo() {
