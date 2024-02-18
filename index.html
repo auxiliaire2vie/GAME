@@ -17,6 +17,19 @@
             object-fit: cover;
             cursor: pointer; /* Ajout d'un indicateur visuel de clic */
         }
+
+        #sound-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -25,6 +38,9 @@
         <source src="https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
+
+    <!-- Indicateur sonore -->
+    <div id="sound-indicator">Cliquez pour activer le son</div>
 
     <script>
         // Fonction pour activer le mode plein écran
@@ -43,14 +59,26 @@
         // Appeler la fonction pour activer le mode plein écran lorsque la page se charge
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('fullscreen-video');
+            var soundIndicator = document.getElementById('sound-indicator');
 
             // Ajouter un indicateur visuel de clic
             video.addEventListener('click', function() {
                 activerPleinEcran(video);
             });
-            
-            // Lecture automatique lorsque la page se charge
-            video.play();
+
+            // Afficher l'indicateur sonore et activer le son lorsque l'utilisateur clique dessus
+            soundIndicator.addEventListener('click', function() {
+                video.muted = false;
+                soundIndicator.style.display = 'none';
+                video.play();
+            });
+
+            // Afficher l'indicateur sonore si le navigateur bloque la lecture automatique avec le son
+            video.addEventListener('play', function() {
+                if (video.paused && video.currentTime < 0.1) {
+                    soundIndicator.style.display = 'block';
+                }
+            });
         });
     </script>
 </body>
