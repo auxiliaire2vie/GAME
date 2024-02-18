@@ -19,10 +19,9 @@
     </style>
 </head>
 <body>
-    <video id="fullscreen-video" autoplay controls>
+    <video id="fullscreen-video" autoplay controls muted>
         <!-- Remplacez le lien ci-dessous par le lien direct de votre vidéo sur GitHub -->
         <source src="https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4" type="video/mp4">
-
         Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
 
@@ -40,10 +39,13 @@
             }
         }
 
-        // Appeler la fonction pour activer le mode plein écran lorsque la page se charge
+        // Appeler la fonction pour activer le mode plein écran en réponse à un clic sur la vidéo
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('fullscreen-video');
-            activerPleinEcran(video);
+
+            video.addEventListener('click', function() {
+                activerPleinEcran(video);
+            });
         });
     </script>
 </body>
