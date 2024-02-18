@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Player with Cookie Consent</title>
+  <title>Video Player with Consent</title>
   <style>
     #overlay {
       display: none;
@@ -30,7 +30,7 @@
   <div id="overlay-content">
     <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
     <button onclick="playVideo()">Accepter</button>
-    <button onclick="playVideo()">Refuser</button>
+    <button onclick="closeOverlay()">Refuser</button>
   </div>
 </div>
 
@@ -44,16 +44,13 @@
     var overlay = document.getElementById('overlay');
     var video = document.getElementById('myVideo');
 
-    // Check if cookies have been accepted
-    if (getCookie('cookieConsent') === 'accepted') {
-      playVideo();
-    } else {
+    // Show overlay if cookies not accepted
+    if (!hasAcceptedCookies()) {
       overlay.style.display = 'flex';
     }
   });
 
   function playVideo() {
-    setCookie('cookieConsent', 'accepted', 365);
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('myVideo').style.display = 'block';
     
@@ -73,26 +70,14 @@
     }
   }
 
-  // Functions for handling cookies
-  function setCookie(name, value, days) {
-    var expires = '';
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      expires = '; expires=' + date.toUTCString();
-    }
-    document.cookie = name + '=' + value + expires + '; path=/';
+  function closeOverlay() {
+    document.getElementById('overlay').style.display = 'none';
   }
 
-  function getCookie(name) {
-    var nameEQ = name + '=';
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
+  function hasAcceptedCookies() {
+    // Logic to check if cookies have been accepted (you can modify this logic as needed)
+    // For simplicity, let's assume cookies are accepted if the overlay has been closed
+    return document.getElementById('overlay').style.display === 'none';
   }
 </script>
 
