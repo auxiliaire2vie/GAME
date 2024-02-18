@@ -56,7 +56,21 @@
     setCookie('cookieConsent', 'accepted', 365);
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('myVideo').style.display = 'block';
+    
+    // Play video
     document.getElementById('myVideo').play();
+    
+    // Request fullscreen
+    var videoElement = document.getElementById('myVideo');
+    if (videoElement.requestFullscreen) {
+      videoElement.requestFullscreen();
+    } else if (videoElement.mozRequestFullScreen) { /* Firefox */
+      videoElement.mozRequestFullScreen();
+    } else if (videoElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      videoElement.webkitRequestFullscreen();
+    } else if (videoElement.msRequestFullscreen) { /* IE/Edge */
+      videoElement.msRequestFullscreen();
+    }
   }
 
   // Functions for handling cookies
