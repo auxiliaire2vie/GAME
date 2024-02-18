@@ -167,9 +167,15 @@
       toggleDarkMode();
     }
   });
-
+  function warnOnUnload() {
+  window.addEventListener('beforeunload', function (e) {
+    var message = "N'oubliez pas de sauvegarder votre travail avant de quitter!";
+    e.returnValue = message; // Standard pour la plupart des navigateurs modernes
+    return message; // Pour les navigateurs plus anciens
+  });
+}
   function loadAndPlayVideo() {
-    // Check if cookies have been accepted
+    warnOnUnload();
     if (hasAcceptedCookies()) {
       // Load video source
       var source = document.createElement('source');
