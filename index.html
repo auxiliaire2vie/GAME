@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-    <video id="fullscreen-video" autoplay controls>
+    <video id="fullscreen-video" autoplay controls muted>
         <!-- Remplacez le lien ci-dessous par le lien direct de votre vidéo sur GitHub -->
         <source src="https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4" type="video/mp4">
         Votre navigateur ne supporte pas la lecture de vidéos.
@@ -56,6 +56,15 @@
             }
         }
 
+        // Fonction pour activer le son et cacher l'indicateur sonore
+        function activerSon() {
+            var video = document.getElementById('fullscreen-video');
+            var soundIndicator = document.getElementById('sound-indicator');
+            video.muted = false;
+            soundIndicator.style.display = 'none';
+            video.play();
+        }
+
         // Appeler la fonction pour activer le mode plein écran lorsque la page se charge
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('fullscreen-video');
@@ -67,17 +76,24 @@
             });
 
             // Afficher l'indicateur sonore et activer le son lorsque l'utilisateur clique dessus
-            soundIndicator.addEventListener('click', function() {
-                video.muted = false;
-                soundIndicator.style.display = 'none';
-                video.play();
-            });
+            soundIndicator.addEventListener('click', activerSon);
 
             // Afficher l'indicateur sonore si le navigateur bloque la lecture automatique avec le son
             video.addEventListener('play', function() {
                 if (video.paused && video.currentTime < 0.1) {
                     soundIndicator.style.display = 'block';
                 }
+            });
+
+            // Vérifier si l'utilisateur a interagi avec la page pour activer la lecture automatique avec le son
+            document.addEventListener('click', function() {
+                video.play().then(function() {
+                    // La lecture automatique est activée, activer le son et masquer l'indicateur sonore
+                    activerSon();
+                }).catch(function(error) {
+                    // La lecture automatique n'a pas été autorisée
+                    console.error('Lecture automatique non autorisée:', error);
+                });
             });
         });
     </script>
