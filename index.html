@@ -9,7 +9,7 @@
       transition: background-color 0.5s;
     }
 
-    .dark-mode body {
+    body.dark-mode {
       background-color: #333;
       color: white;
     }
@@ -133,9 +133,33 @@
       color: white;
       font-size: 16px;
     }
+
+    /* Style for the mode switch button in the cookie overlay */
+    .mode-switch-button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .mode-switch-button:hover {
+      background-color: #2980b9;
+    }
   </style>
 </head>
 <body>
+
+<div id="overlay">
+  <div id="overlay-content">
+    <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
+    <button onclick="playVideo()">Accepter</button>
+    <button onclick="closeOverlay()">Refuser</button>
+    <button class="mode-switch-button" onclick="toggleDarkMode()">Changer le mode</button>
+  </div>
+</div>
 
 <label class="switch">
   <input type="checkbox" id="darkModeSwitch" onclick="toggleDarkMode()">
@@ -143,14 +167,6 @@
 </label>
 
 <span class="dark-mode-text">Dark Mode</span>
-
-<div id="overlay">
-  <div id="overlay-content">
-    <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
-    <button onclick="playVideo()">Accepter</button>
-    <button onclick="closeOverlay()">Refuser</button>
-  </div>
-</div>
 
 <video id="myVideo" width="100%" controls="false" controlsList="nodownload"></video>
 
@@ -233,4 +249,5 @@
   }
 </script>
 
-</body
+</body>
+</html>
