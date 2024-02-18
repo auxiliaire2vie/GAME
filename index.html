@@ -22,6 +22,9 @@
       border-radius: 10px;
       text-align: center;
     }
+    video {
+      outline: none; /* Remove outline on focus for Chrome */
+    }
   </style>
 </head>
 <body>
@@ -30,14 +33,11 @@
   <div id="overlay-content">
     <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
     <button onclick="playVideo()">Accepter</button>
-    <button onclick="playVideo()">Refuser</button>
+    <button onclick="closeOverlay()">Refuser</button>
   </div>
 </div>
 
-<video id="myVideo" width="100%" style="display: none;">
-  <source src="https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<video id="myVideo" width="100%" style="display: none;" controls></video>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -47,31 +47,46 @@
     // Show overlay if cookies not accepted
     if (!hasAcceptedCookies()) {
       overlay.style.display = 'flex';
+    } else {
+      // If cookies accepted, load video and play
+      loadAndPlayVideo();
     }
   });
 
-  function playVideo() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('myVideo').style.display = 'block';
-    
+  function loadAndPlayVideo() {
+    // Load video source
+    var source = document.createElement('source');
+    source.src = "https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4";
+    source.type = "video/mp4";
+
+    // Append source to video element
+    var video = document.getElementById('myVideo');
+    video.appendChild(source);
+
     // Play video
-    document.getElementById('myVideo').play();
+    video.style.display = 'block';
+    video.play();
     
     // Request fullscreen
-    var videoElement = document.getElementById('myVideo');
-    if (videoElement.requestFullscreen) {
-      videoElement.requestFullscreen();
-    } else if (videoElement.mozRequestFullScreen) { /* Firefox */
-      videoElement.mozRequestFullScreen();
-    } else if (videoElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      videoElement.webkitRequestFullscreen();
-    } else if (videoElement.msRequestFullscreen) { /* IE/Edge */
-      videoElement.msRequestFullscreen();
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) { /* Firefox */
+      video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { /* IE/Edge */
+      video.msRequestFullscreen();
     }
+  }
+
+  function playVideo() {
+    document.getElementById('overlay').style.display = 'none';
+    loadAndPlayVideo();
   }
 
   function closeOverlay() {
     document.getElementById('overlay').style.display = 'none';
+    loadAndPlayVideo();
   }
 
   function hasAcceptedCookies() {
