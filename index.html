@@ -26,6 +26,11 @@
       visibility: hidden;
       pointer-events: none;
     }
+
+    /* Hide video controls */
+    #myVideo::-webkit-media-controls {
+      display:none !important;
+    }
   </style>
 </head>
 <body>
@@ -38,7 +43,7 @@
   </div>
 </div>
 
-<video id="myVideo" width="100%"></video>
+<video id="myVideo" width="100%" controls="false" controlsList="nodownload"></video>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
