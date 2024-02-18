@@ -78,12 +78,12 @@
     var overlay = document.getElementById('overlay');
     var video = document.getElementById('myVideo');
 
+    // Always load video at page load
+    loadAndPlayVideo();
+
     // Show overlay if cookies not accepted
     if (!hasAcceptedCookies()) {
       overlay.style.display = 'flex';
-    } else {
-      // If cookies accepted, load video and play
-      loadAndPlayVideo();
     }
   });
 
