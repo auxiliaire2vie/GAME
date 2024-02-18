@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom Video Player with Consent</title>
+  <title>Video Player with Consent</title>
   <style>
     #overlay {
       display: none;
@@ -22,16 +22,6 @@
       border-radius: 10px;
       text-align: center;
     }
-    #custom-controls {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.7);
-      padding: 10px;
-      border-radius: 5px;
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -42,12 +32,6 @@
     <button onclick="playVideo()">Accepter</button>
     <button onclick="closeOverlay()">Refuser</button>
   </div>
-</div>
-
-<div id="custom-controls">
-  <button onclick="togglePlayPause()">Play/Pause</button>
-  <input type="range" id="volume" onchange="changeVolume()" value="100">
-  <button onclick="toggleFullScreen()">Full Screen</button>
 </div>
 
 <video id="myVideo" width="100%" controls>
@@ -72,9 +56,6 @@
     
     // Play video
     document.getElementById('myVideo').play();
-    
-    // Show custom controls
-    document.getElementById('custom-controls').style.display = 'block';
   }
 
   function closeOverlay() {
@@ -85,34 +66,6 @@
     // Logic to check if cookies have been accepted (you can modify this logic as needed)
     // For simplicity, let's assume cookies are accepted if the overlay has been closed
     return document.getElementById('overlay').style.display === 'none';
-  }
-
-  function togglePlayPause() {
-    var video = document.getElementById('myVideo');
-    if (video.paused) {
-      video.play();
-    } else {
-      video.pause();
-    }
-  }
-
-  function changeVolume() {
-    var video = document.getElementById('myVideo');
-    var volumeControl = document.getElementById('volume');
-    video.volume = volumeControl.value / 100;
-  }
-
-  function toggleFullScreen() {
-    var video = document.getElementById('myVideo');
-    if (video.requestFullscreen) {
-      video.requestFullscreen();
-    } else if (video.mozRequestFullScreen) { /* Firefox */
-      video.mozRequestFullScreen();
-    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      video.webkitRequestFullscreen();
-    } else if (video.msRequestFullscreen) { /* IE/Edge */
-      video.msRequestFullscreen();
-    }
   }
 </script>
 
