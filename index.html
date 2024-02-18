@@ -15,6 +15,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: pointer; /* Ajout d'un indicateur visuel de clic */
         }
     </style>
 </head>
@@ -39,13 +40,17 @@
             }
         }
 
-        // Appeler la fonction pour activer le mode plein écran en réponse à un clic sur la vidéo
+        // Appeler la fonction pour activer le mode plein écran lorsque la page se charge
         document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('fullscreen-video');
 
+            // Ajouter un indicateur visuel de clic
             video.addEventListener('click', function() {
                 activerPleinEcran(video);
             });
+            
+            // Lecture automatique lorsque la page se charge
+            video.play();
         });
     </script>
 </body>
