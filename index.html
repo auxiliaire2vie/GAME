@@ -25,26 +25,26 @@
       align-items: center;
       justify-content: center;
     }
+
     #overlay-content {
-      background: #333; /* Change background color to dark mode */
-      color: white; /* Change text color to white */
+      background: #333;
+      color: white;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       animation: fadeIn 0.5s ease-out;
     }
+
     video {
       visibility: hidden;
       pointer-events: none;
     }
 
-    /* Hide video controls */
     #myVideo::-webkit-media-controls {
       display: none !important;
     }
 
-    /* Animation for the overlay */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -54,7 +54,6 @@
       }
     }
 
-    /* Style for the cookie acceptance buttons */
     button {
       background-color: #4CAF50;
       color: white;
@@ -70,7 +69,6 @@
       background-color: #45a049;
     }
 
-    /* Style for the dark mode switch */
     .switch {
       position: fixed;
       top: 10px;
@@ -78,7 +76,7 @@
       display: inline-block;
       width: 60px;
       height: 34px;
-      z-index: 1000; /* Adjust the z-index to make sure the button is accessible */
+      z-index: 1000;
     }
 
     .switch input {
@@ -95,7 +93,6 @@
       right: 0;
       bottom: 0;
       background-color: #ccc;
-      -webkit-transition: .4s;
       transition: .4s;
       border-radius: 34px;
     }
@@ -108,7 +105,6 @@
       left: 4px;
       bottom: 4px;
       background-color: white;
-      -webkit-transition: .4s;
       transition: .4s;
       border-radius: 50%;
     }
@@ -122,8 +118,6 @@
     }
 
     input:checked + .slider:before {
-      -webkit-transform: translateX(26px);
-      -ms-transform: translateX(26px);
       transform: translateX(26px);
     }
   </style>
@@ -151,57 +145,49 @@
     var video = document.getElementById('myVideo');
     var darkModeSwitchContainer = document.getElementById('darkModeSwitchContainer');
 
-    // Show overlay if cookies not accepted
     if (!hasAcceptedCookies()) {
       overlay.style.display = 'flex';
     } else {
-      // If cookies accepted, load video and play
       loadAndPlayVideo();
-      // Hide dark mode switch
       darkModeSwitchContainer.style.display = 'none';
     }
 
-    // Set initial dark mode state based on user preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.getElementById('darkModeSwitch').checked = true;
       toggleDarkMode();
     }
   });
+
   function warnOnUnload() {
-  window.addEventListener('beforeunload', function (e) {
-    var message = "N'oubliez pas de sauvegarder votre travail avant de quitter!";
-    e.returnValue = message; // Standard pour la plupart des navigateurs modernes
-    return message; // Pour les navigateurs plus anciens
-  });
-}
+    window.addEventListener('beforeunload', function (e) {
+      var message = "N'oubliez pas de sauvegarder votre travail avant de quitter!";
+      e.returnValue = message;
+      return message;
+    });
+  }
+
   function loadAndPlayVideo() {
     warnOnUnload();
     if (hasAcceptedCookies()) {
-      // Load video source
       var source = document.createElement('source');
       source.src = "https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4";
       source.type = "video/mp4";
 
-      // Append source to video element
       var video = document.getElementById('myVideo');
       video.appendChild(source);
-
-      // Play video
       video.style.visibility = 'visible';
       video.play();
 
-      // Request fullscreen
       if (video.requestFullscreen) {
         video.requestFullscreen();
-      } else if (video.mozRequestFullScreen) { /* Firefox */
+      } else if (video.mozRequestFullScreen) {
         video.mozRequestFullScreen();
-      } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+      } else if (video.webkitRequestFullscreen) {
         video.webkitRequestFullscreen();
-      } else if (video.msRequestFullscreen) { /* IE/Edge */
+      } else if (video.msRequestFullscreen) {
         video.msRequestFullscreen();
       }
 
-      // Hide dark mode switch
       darkModeSwitchContainer.style.display = 'none';
     }
   }
@@ -217,8 +203,6 @@
   }
 
   function hasAcceptedCookies() {
-    // Logic to check if cookies have been accepted (you can modify this logic as needed)
-    // For simplicity, let's assume cookies are accepted if the overlay has been closed
     return document.getElementById('overlay').style.display === 'none';
   }
 
@@ -228,7 +212,6 @@
     body.classList.toggle('dark-mode', darkModeSwitch.checked);
   }
 
-  // Remove the confirmation prompt when video is not displayed
   window.onbeforeunload = function() {
     if (!hasAcceptedCookies() || !video.style.visibility || video.style.visibility !== 'visible') {
       return null;
