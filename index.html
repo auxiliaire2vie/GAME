@@ -3,29 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Player</title>
+  <title>Video Player with Cookie Consent</title>
+  <style>
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    #overlay-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-<video id="myVideo" width="100%" controls>
+<div id="overlay">
+  <div id="overlay-content">
+    <p>Ce site utilise des cookies. Acceptez-vous l'utilisation des cookies?</p>
+    <button onclick="playVideo()">Accepter</button>
+    <button onclick="playVideo()">Refuser</button>
+  </div>
+</div>
+
+<video id="myVideo" width="100%" controls style="display: none;">
   <source src="https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var overlay = document.getElementById('overlay');
     var video = document.getElementById('myVideo');
 
-    // Autoplay video
-    video.autoplay = true;
-
-    // Trigger full screen
-    video.addEventListener('canplay', function() {
-      video.requestFullscreen().then(function() {
-        video.play();
-      });
-    });
+    // Check if cookies have been accepted
+    if (getCookie('cookieConsent') === 'accepted') {
+      playVideo();
+    } else {
+      overlay.style.display = 'flex';
+    }
   });
+
+  function playVideo() {
+    setCookie('cookieConsent', 'accepted', 365);
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('myVideo').style.display = 'block';
+    document.getElementById('myVideo').play();
+  }
+
+  // Functions for handling cookies
+  function setCookie(name, value, days) {
+    var expires = '';
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = '; expires=' + date.toUTCString();
+    }
+    document.cookie = name + '=' + value + expires + '; path=/';
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
 </script>
 
 </body>
