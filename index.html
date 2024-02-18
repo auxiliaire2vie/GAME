@@ -88,35 +88,40 @@
 
     // Ask for confirmation before leaving the page
     window.addEventListener('beforeunload', function(e) {
-      var confirmationMessage = 'Êtes-vous sûr de vouloir quitter la page?';
-      (e || window.event).returnValue = confirmationMessage;
-      return confirmationMessage;
+      if (!hasAcceptedCookies()) {
+        var confirmationMessage = 'Vous n\'avez pas accepté les cookies. Êtes-vous sûr de vouloir quitter la page?';
+        (e || window.event).returnValue = confirmationMessage;
+        return confirmationMessage;
+      }
     });
   });
 
   function loadAndPlayVideo() {
-    // Load video source
-    var source = document.createElement('source');
-    source.src = "https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4";
-    source.type = "video/mp4";
+    // Check if cookies have been accepted
+    if (hasAcceptedCookies()) {
+      // Load video source
+      var source = document.createElement('source');
+      source.src = "https://raw.githubusercontent.com/auxiliaire2vie/really_cute_kitten_not_a_screamer_at_all/main/Packgod%20vs%20OnlyFans%20Girl.mp4";
+      source.type = "video/mp4";
 
-    // Append source to video element
-    var video = document.getElementById('myVideo');
-    video.appendChild(source);
+      // Append source to video element
+      var video = document.getElementById('myVideo');
+      video.appendChild(source);
 
-    // Play video
-    video.style.visibility = 'visible';
-    video.play();
+      // Play video
+      video.style.visibility = 'visible';
+      video.play();
 
-    // Request fullscreen
-    if (video.requestFullscreen) {
-      video.requestFullscreen();
-    } else if (video.mozRequestFullScreen) { /* Firefox */
-      video.mozRequestFullScreen();
-    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      video.webkitRequestFullscreen();
-    } else if (video.msRequestFullscreen) { /* IE/Edge */
-      video.msRequestFullscreen();
+      // Request fullscreen
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) { /* Firefox */
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) { /* IE/Edge */
+        video.msRequestFullscreen();
+      }
     }
   }
 
